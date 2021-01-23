@@ -10,6 +10,9 @@ import formSysteme from '../views/formSysteme.vue'
 import About from '../views/About.vue'
 
 Vue.use(VueRouter)
+import VueFormGenerator from 'vue-form-generator'
+import 'vue-form-generator/dist/vfg.css'
+Vue.use(VueFormGenerator)
 
 const routes = [
   {
