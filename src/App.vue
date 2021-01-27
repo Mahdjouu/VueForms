@@ -23,23 +23,19 @@
     color: #2c3e50;
     height: 100%;
   }
-
   #nav {
     padding: 30px;
   }
-
   #nav a {
     font-weight: bold;
     color: #2c3e50;
   }
-
   #nav a.router-link-exact-active {
     color: #42b983;
   }
   .page{
-    height: 90%;
+    height: 100%;
   }
-
   .form {
     width:50%;
     align-items: center;
@@ -47,11 +43,14 @@
     margin-right: auto;
     padding: 2%;
   }
-
+  .radio-list{
+    text-align: left;
+  }
   footer{
     position:absolute;
     bottom:2%;
     width:100%;
     padding-top:50px;
-    }
+  }
+  
 </style>

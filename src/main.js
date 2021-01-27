@@ -2,11 +2,18 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
+
+import VueFormGenerator from "vue-form-generator";
 import "vue-form-generator/dist/vfg-core.css";
 import 'vue-form-generator/dist/vfg.css'
+
+import "axios"
+
+const axios = require('axios');
+
 Vue.use(VueFormGenerator)
 Vue.config.productionTip = false
 
