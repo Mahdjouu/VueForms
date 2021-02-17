@@ -3,7 +3,9 @@
     <h2>Ajout d'une publication</h2>
       <p>Si vous ne trouvez pas l'ouvrage que vous souhaitez ajouter, veuillez vous rendre à l'onglet <router-link to="/formOuvrage"> Ouvrage</router-link> </p>
     <div class="form">
-    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <form action="ajoutChercheur.php" method="POST">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      </form>
     </div>
     {{model}}
   </div>
@@ -18,13 +20,13 @@
       return {
         model: {
           image: null,
-          titre: "Titre de la publication",
-          resume: "Resumé",
-          ouvrage: "Nom de l'ouvrage de provenance",
-          nb_pages: 0,
-          numero:0,
-          volume : 0,
-          url:"www.lien-publication.fr"
+          titre: "",
+          resume: "",
+          ouvrage: "",
+          nb_pages: null,
+          numero: null,
+          volume : null,
+          url:""
         },
         schema: {
           fields: [
@@ -50,6 +52,7 @@
             {
               type: 'textArea',
               label: 'Résumé de l\'article',
+              placeholder: 'Résumé de l\'article',
               model: 'resume',
               featured: true,
               required: true,
@@ -64,6 +67,7 @@
                 "Ouvrage3",
                 "Ouvrage4"
               ],
+              placeholder: 'Ouvrage',
               featured: true,
               required: true,
             },
@@ -71,6 +75,7 @@
               type: 'input',
               inputType: 'number' ,
               label: 'Nombre de pages',
+              placeholder: '0',
               model: 'nb_pages',
               maxlength: 10,
               featured: true,
@@ -82,6 +87,7 @@
               inputType: 'number' ,
               label: 'Numéro',
               model: 'numero',
+              placeholder: '0',
               maxlength: 5,
               featured: true,
               required: true,
@@ -92,6 +98,7 @@
               inputType: 'number' ,
               label: 'Volume',
               model: 'volume',
+              placeholder: '0',
               maxlength: 5,
               featured: true,
               required: true,
@@ -102,7 +109,7 @@
               inputType: 'text',
               label: 'Lien / URL',
               model: 'url',
-              placeholder: 'url',
+              placeholder: 'www.site-de-larticle.fr',
               featured: true,
               required: true
             },
@@ -114,7 +121,7 @@
                   for ( var key in model ) {
                     form_data.append(key, model[key]);
                   }
-                  axios.post("ajoutNomOuvrage.php", form_data)
+                  axios.post("ajoutPublication.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },

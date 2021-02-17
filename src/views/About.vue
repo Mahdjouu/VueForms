@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="page">
     <h2>BOUZOUINA Mahdjouba</h2>
 
     <img src="https://media.giphy.com/media/6C9CMGMFtzzbO/giphy.gif" alt="gif waf">

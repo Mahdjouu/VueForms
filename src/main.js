@@ -11,8 +11,8 @@ import "vue-form-generator/dist/vfg-core.css";
 import 'vue-form-generator/dist/vfg.css'
 
 import "axios"
+const axios = require('axios').default;
 
-const axios = require('axios');
 
 Vue.use(VueFormGenerator)
 Vue.config.productionTip = false

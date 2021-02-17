@@ -3,7 +3,9 @@
   <h2>Ajout d'un ouvrage</h2>
   <p>Si vous ne trouvez pas le nom de l'ouvrage que vous souhaitez ajouter, veuillez vous rendre à l'onglet <router-link to="/formNomOuvrage"> Nom d'ouvrage</router-link> </p>
     <div class="form">
-    <vue-form-generator :schema="schema" :model="model" :options="formOptions"> </vue-form-generator>
+      <form action="ajoutChercheur.php" method="POST">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      </form>
     </div>
     {{model}}
   </div>
@@ -17,9 +19,9 @@
       data () {
       return {
         model: {
-          nom: 'Nom',
-          annee: '2021',
-          lieu: 'France',
+          nom: '',
+          annee: '',
+          lieu: '',
         },
         schema: {
           fields: [
@@ -64,7 +66,7 @@
                   for ( var key in model ) {
                     form_data.append(key, model[key]);
                   }
-                  axios.post("ajoutNomOuvrage.php", form_data)
+                  axios.post("ajoutOuvrage.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },

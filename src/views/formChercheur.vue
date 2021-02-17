@@ -12,7 +12,7 @@
 
 <script>
 
-  import axios from "axios";
+  const axios = require('axios');
   
   export default {
 
@@ -20,10 +20,9 @@
       return {
         model: {
           photo: null,
-          prenom: 'Prénom',
-          nom: 'Nom',
-          //affiliation:'Affiliation',
-          url: 'www.son_site.fr'
+          prenom: '',
+          nom: '',
+          url: ''
         },
         schema: {
           fields: [
@@ -54,16 +53,6 @@
               featured: true,
               required: true
             },
-            /*{
-              type: 'input',
-              inputType: 'text',
-              label: 'Affiliation',
-              model: 'affiliation',
-              hint: " (laboratoire)",
-              placeholder: 'Affiliation',
-              featured: true,
-              required: true
-            },*/
             {
               type: 'input',
               inputType: 'text',
@@ -79,9 +68,27 @@
                 console.log(model);
                 var form_data = new FormData();
                 for ( var key in model ) {
+                  if(key=="photo"){
+                    var b64 =model[key],
+                    arr = b64.split(','), 
+                    mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), 
+                    n = bstr.length, 
+                    u8arr = new Uint8Array(n);
+                    while(n--){
+                      u8arr[n] = bstr.charCodeAt(n);
+                    }
+                    var filename = '';
+                    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    var charactersLength = characters.length;
+                    for ( var i = 0; i < 10; i++ ) {
+                        filename += characters.charAt(Math.floor(Math.random() * charactersLength));
+                    }
+                    model[key]=new File([u8arr], filename, {type:mime});
+                  }
                   form_data.append(key, model[key]);
                 }
-                axios.post("ajoutNomOuvrage.php", form_data)
+                axios.post("ajoutChercheur.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },

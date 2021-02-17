@@ -2,7 +2,9 @@
   <div class="page">
   <h2>Ajout d'un nom d'ouvrage</h2>
     <div class="form">
-    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <form action="ajoutChercheur.php" method="POST">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      </form>
     </div>
     {{model}}
   </div>
@@ -10,16 +12,16 @@
 
 <script>
 
-  import axios from 'axios';
+  const axios = require('axios');
 
   export default {
     
       data () {
       return {
         model: {
-          nom: 'Nom de l\'ouvrage',
-          abbreviation: 'Abbr',
-          type: 'conference',
+          nom: '',
+          abbreviation: '',
+          type: '',
         },
         schema: {
           fields: [

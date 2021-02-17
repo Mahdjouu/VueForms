@@ -2,7 +2,9 @@
   <div class="page">
   <h2>Ajout d'une publication</h2>
     <div class="form">
-    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <form action="ajoutChercheur.php" method="POST">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      </form>
     </div>
     {{model}}
   </div>
@@ -16,8 +18,8 @@
       data () {
       return {
         model: {
-          nom: "Nom du système",
-          description: "Description du système"
+          nom: "",
+          description: ""
         },
         schema: {
           fields: [
@@ -26,6 +28,7 @@
               inputType: 'text',
               label: 'Nom',
               model: 'nom',
+              placeholder: 'Nom du système',
               required: true,
               featured:true,
               preview:true,
@@ -47,7 +50,7 @@
                   for ( var key in model ) {
                     form_data.append(key, model[key]);
                   }
-                  axios.post("ajoutNomOuvrage.php", form_data)
+                  axios.post("ajoutSysteme.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
