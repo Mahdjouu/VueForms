@@ -2,9 +2,9 @@
   <div class="page">
   <h2>Ajout d'un chercheur</h2>
     <div class="form">
-      <form action="ajoutChercheur.php" method="POST">
-        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-      </form>
+      <input type="file" accept="image/*" @change="uploadImage($event)" id="photo">
+      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+
     </div>
     {{model}}
   </div>
@@ -104,8 +104,20 @@
           validateAsync: true
         }
       }
-    }
+    },
+    methods:{
+      uploadImage(event) {
+        //const URL = '';
+        let data = new FormData();
+        data.append('name', 'my-picture');
+        data.append('file', event.target.files[0]);
 
-  }
-    
+        /*let config = {
+          header : {
+            'Content-Type' : 'image/png'
+          }
+        }*/
+      }
+    }
+  }  
 </script>
