@@ -2,9 +2,13 @@
   <div class="page">
   <h2>Ajout d'un chercheur</h2>
     <div class="form">
-      <input type="file" accept="image/*" @change="uploadImage($event)" id="photo">
+      <input
+          type="file"
+          id="fileselect"
+          @change="photoChange"
+          accept="image/jpeg, image/png, image/jpg, image/gif"
+        />
       <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-
     </div>
     {{model}}
   </div>
@@ -16,25 +20,16 @@
   
   export default {
 
-    data: function() {
+    form_data: function() {
       return {
         model: {
-          photo: null,
           prenom: '',
           nom: '',
-          url: ''
+          url: '',
+          photo: null
         },
         schema: {
           fields: [
-            {
-              type: "image",
-              label: "Photo",
-              model: "photo",
-              hideInput: true,
-              browse: true,
-              required: true,
-              featured:true,
-            },
             {
               type: 'input',
               inputType: 'text',
@@ -67,27 +62,11 @@
               onSubmit(model) {
                 console.log(model);
                 var form_data = new FormData();
-                for ( var key in model ) {
-                  if(key=="photo"){
-                    var b64 =model[key],
-                    arr = b64.split(','), 
-                    mime = arr[0].match(/:(.*?);/)[1],
-                    bstr = atob(arr[1]), 
-                    n = bstr.length, 
-                    u8arr = new Uint8Array(n);
-                    while(n--){
-                      u8arr[n] = bstr.charCodeAt(n);
-                    }
-                    var filename = '';
-                    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                    var charactersLength = characters.length;
-                    for ( var i = 0; i < 10; i++ ) {
-                        filename += characters.charAt(Math.floor(Math.random() * charactersLength));
-                    }
-                    model[key]=new File([u8arr], filename, {type:mime});
-                  }
-                  form_data.append(key, model[key]);
-                }
+                form_data.set("nom", this.nom);
+                form_data.set("prenom", this.prenom);
+                form_data.set("photo", this.photo);
+                form_data.set("fileselect", this.photo);
+                form_data.set("url", this.url);
                 axios.post("ajoutChercheur.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
@@ -106,17 +85,8 @@
       }
     },
     methods:{
-      uploadImage(event) {
-        //const URL = '';
-        let data = new FormData();
-        data.append('name', 'my-picture');
-        data.append('file', event.target.files[0]);
-
-        /*let config = {
-          header : {
-            'Content-Type' : 'image/png'
-          }
-        }*/
+      photoChange(e) {
+      this.photo = e.target.files[0];
       }
     }
   }  
