@@ -2,7 +2,7 @@
   <div class="page">
   <h2>Ajout d'une publication</h2>
     <div class="form">
-      <form action="ajoutChercheur.php" method="POST">
+      <form action="ajoutSysteme.php" method="POST">
         <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </form>
     </div>
@@ -15,7 +15,7 @@
   import axios from 'axios';
 
   export default {
-      data () {
+      data: function() {
       return {
         model: {
           nom: "",

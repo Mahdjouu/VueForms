@@ -2,7 +2,7 @@
   <div class="page">
   <h2>Ajout d'un nom d'ouvrage</h2>
     <div class="form">
-      <form action="ajoutChercheur.php" method="POST">
+      <form action="ajoutNomOuvrage.php" method="POST">
         <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </form>
     </div>
@@ -16,7 +16,7 @@
 
   export default {
     
-      data () {
+      data: function() {
       return {
         model: {
           nom: '',
@@ -59,10 +59,10 @@
               type: 'submit',
               onSubmit(model) {
                 console.log(model);
-                  var form_data = new FormData();
-                  for ( var key in model ) {
-                    form_data.append(key, model[key]);
-                  }
+                var form_data = new FormData();
+                form_data.set("nom", this.nom);
+                form_data.set("abbreviation", this.abbreviation);
+                form_data.set("type", this.type);
                   axios.post("ajoutNomOuvrage.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});

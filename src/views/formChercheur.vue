@@ -2,13 +2,15 @@
   <div class="page">
   <h2>Ajout d'un chercheur</h2>
     <div class="form">
-      <input
+      <form action="ajoutChercheur.php" method="POST">
+        <input
           type="file"
           id="fileselect"
           @change="photoChange"
           accept="image/jpeg, image/png, image/jpg, image/gif"
         />
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      </form>
     </div>
     {{model}}
   </div>
@@ -20,7 +22,7 @@
   
   export default {
 
-    form_data: function() {
+    data: function() {
       return {
         model: {
           prenom: '',
@@ -55,7 +57,6 @@
               model: 'url',
               placeholder: 'www.son_site.fr',
               featured: true,
-              required: true
             },
             {
               type: 'submit',

@@ -3,7 +3,13 @@
     <h2>Ajout d'une publication</h2>
       <p>Si vous ne trouvez pas l'ouvrage que vous souhaitez ajouter, veuillez vous rendre à l'onglet <router-link to="/formOuvrage"> Ouvrage</router-link> </p>
     <div class="form">
-      <form action="ajoutChercheur.php" method="POST">
+      <form action="ajoutPublication.php" method="POST">
+        <input
+          type="file"
+          id="fileselect"
+          @change="photoChange"
+          accept="image/jpeg, image/png, image/jpg, image/gif"
+        />
         <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </form>
     </div>
@@ -16,10 +22,10 @@
   import axios from 'axios';
 
   export default {
-      data () {
+      data: function() {
       return {
         model: {
-          image: null,
+          photo: null,
           titre: "",
           resume: "",
           ouvrage: "",
@@ -30,16 +36,7 @@
         },
         schema: {
           fields: [
-            {
-              type: 'image',
-              label: 'Illustration',
-              model: 'image',
-              hideInput: true,
-              required: true,
-              featured:true,
-              browse: true,
-              preview:true,
-            },
+
             {
               type: 'input',
               inputType: 'text',
@@ -79,7 +76,6 @@
               model: 'nb_pages',
               maxlength: 10,
               featured: true,
-              required: true,
               hint: "Le nombre de pages est requis et doit être un entier. Ex: 50"
             },
             {
@@ -90,7 +86,6 @@
               placeholder: '0',
               maxlength: 5,
               featured: true,
-              required: true,
               hint: "Le numéro est requis et doit être un entier. Ex: 2"
             },
             {
@@ -101,7 +96,6 @@
               placeholder: '0',
               maxlength: 5,
               featured: true,
-              required: true,
               hint: "Le volume est requis et doit être un entier. Ex: 3"
             },
             {
@@ -111,7 +105,6 @@
               model: 'url',
               placeholder: 'www.site-de-larticle.fr',
               featured: true,
-              required: true
             },
             {
               type: 'submit',
@@ -136,6 +129,11 @@
           validateAfterChange: true,
           validateAsync: true
         }
+      }
+    },
+    methods:{
+      photoChange(e) {
+      this.photo = e.target.files[0];
       }
     }
   }
