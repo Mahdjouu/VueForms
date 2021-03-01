@@ -63,16 +63,15 @@
               onSubmit(model) {
                 console.log(model);
                 var form_data = new FormData();
-                form_data.set("nom", this.nom);
-                form_data.set("prenom", this.prenom);
-                form_data.set("photo", this.photo);
-                form_data.set("fileselect", this.photo);
-                form_data.set("url", this.url);
+                form_data.set("nom", model.nom);
+                form_data.set("prenom", model.prenom);
+                form_data.set("photo", model.photo);
+                form_data.set("fileselect", model.photo);
+                form_data.set("url", model.url);
                 axios.post("ajoutChercheur.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
-              label: '',
               buttonText: "Ajouter",
               validateBeforeSubmit: true
             },

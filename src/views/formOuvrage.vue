@@ -30,10 +30,11 @@
               label: 'Nom de l\'ouvrage',
               model: 'nom',
               values: [
-                "Nom1",
-                "Nom2",
-                "Nom3"
+                "Nom 1",
+                "Nom 2",
+                "Nom 3",
               ],
+              noneSelectedText:"Veuillez selectionner le nom de votre ouvrage ",
               default: null,
               featured: true,
               required: true
@@ -48,7 +49,7 @@
               placeholder: '2021',
               featured: true,
               required: true,
-              hint: "L'année est requise doit être un entier. Ex: 2021",
+              hint: "L'année doit être un entier. Ex: 2021",
             },
             {
               type: 'input',
@@ -56,21 +57,19 @@
               label: 'Lieu de parution',
               model: 'lieu',
               featured: true,
-              required: true
             },
             {
               type: 'submit',
               onSubmit(model) {
                 console.log(model);
                 var form_data = new FormData();
-                form_data.set("nom", this.nom);
-                form_data.set("annee", this.annee);
-                form_data.set("lieu", this.lieu);
+                form_data.set("nom", model.nom);
+                form_data.set("annee", model.annee);
+                form_data.set("lieu", model.lieu);
                   axios.post("ajoutOuvrage.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
-              label: '',
               buttonText: "Ajouter",
               validateBeforeSubmit: true
             },
@@ -82,7 +81,13 @@
           validateAsync: true
         }
       }
-    }
+    },
+    mounted(){
+    axios.post("getNomOuvrage.php")
+    .then((response) => {console.log(response);
+                        this.schema.fields.values=response.data;})
+    .catch(function(error) {console.log(error);});
+  }
   }
     
 </script>

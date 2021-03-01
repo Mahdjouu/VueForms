@@ -47,14 +47,12 @@
               onSubmit(model) {
                 console.log(model);
                   var form_data = new FormData();
-                  for ( var key in model ) {
-                    form_data.append(key, model[key]);
-                  }
+                  form_data.set("nom", model.nom);
+                  form_data.set("description", model.description);
                   axios.post("ajoutSysteme.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
-              label: '',
               buttonText: "Ajouter",
               validateBeforeSubmit: true
             },

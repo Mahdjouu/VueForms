@@ -58,12 +58,12 @@
               type: 'select',
               label: 'Ouvrage',
               model: 'ouvrage',
-              values:[
-                "Ouvrage1",
-                "Ouvrage2",
-                "Ouvrage3",
-                "Ouvrage4"
+              values: [
+                "Ouvrage 1",
+                "Ouvrage 2",
+                "Ouvrage 3",
               ],
+              noneSelectedText:"Veuillez selectionner votre ouvrage ",
               placeholder: 'Ouvrage',
               featured: true,
               required: true,
@@ -76,7 +76,7 @@
               model: 'nb_pages',
               maxlength: 10,
               featured: true,
-              hint: "Le nombre de pages est requis et doit être un entier. Ex: 50"
+              hint: "Le nombre de pages doit être un entier. Ex: 50"
             },
             {
               type: 'input',
@@ -86,7 +86,7 @@
               placeholder: '0',
               maxlength: 5,
               featured: true,
-              hint: "Le numéro est requis et doit être un entier. Ex: 2"
+              hint: "Le numéro est requis être un entier. Ex: 2"
             },
             {
               type: 'input',
@@ -111,14 +111,20 @@
               onSubmit(model) {
                 console.log(model);
                   var form_data = new FormData();
-                  for ( var key in model ) {
-                    form_data.append(key, model[key]);
-                  }
+                  form_data.set("titre", model.titre);
+                  form_data.set("resume", model.resume);
+                  form_data.set("ouvrage", model.ouvrage);
+                  form_data.set("nb_pages", model.nb_pages);
+                  form_data.set("numero", model.numero);
+                  form_data.set("volume", model.volume);
+                  form_data.set("url", model.url);
+                  form_data.set("photo", model.photo);
+                  form_data.set("fileselect", model.photo);
+                  
                   axios.post("ajoutPublication.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
-              label: '',
               buttonText: "Ajouter",
               validateBeforeSubmit: true
             },
@@ -135,7 +141,13 @@
       photoChange(e) {
       this.photo = e.target.files[0];
       }
-    }
+    },
+    mounted(){
+    axios.post("getOuvrage.php")
+    .then((response) => {console.log(response);
+                        this.schema.fields.values=response.data;})
+    .catch(function(error) {console.log(error);});
+  }
   }
     
 </script>

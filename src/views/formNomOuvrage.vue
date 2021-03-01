@@ -60,14 +60,13 @@
               onSubmit(model) {
                 console.log(model);
                 var form_data = new FormData();
-                form_data.set("nom", this.nom);
-                form_data.set("abbreviation", this.abbreviation);
-                form_data.set("type", this.type);
+                form_data.set("nom", model.nom);
+                form_data.set("abbreviation", model.abbreviation);
+                form_data.set("type", model.type);
                   axios.post("ajoutNomOuvrage.php", form_data)
                   .then(function (response) {console.log(response);})
                   .catch(function (error) {console.log(error);});
               },
-              label: '',
               buttonText: "Ajouter",
               validateBeforeSubmit: true
             },
